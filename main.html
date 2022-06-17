@@ -22,6 +22,9 @@
         left:1%px;
         bottom:0px;
     }
+    .button{
+        cursor: pointer;
+    }
 </style>
 
 
@@ -34,6 +37,7 @@
         }
 
         let btn = document.createElement("button");
+        btn.classList.add("button");
         btn.classList.add("participant");
         btn.dataset.secondsSpokenTotal = 0;
         btn.dataset.secondsSpokenNow = 0;
@@ -173,20 +177,9 @@
         return str;
     }
 
-    function STARTTEST(){
-        addParticipant("Destiny")
-        addParticipant("MrGirl")
-        addParticipant("notsoErudite")
-        addParticipant("BookSmarts")
-        addParticipant("Stardust")
-        addParticipant("SOMEONE WITH A VERY LONG UPPERCASE USERNAME")
-    }
-
     function run(){
         setInterval(update, 1000)
     }
-
-
 
 </script>
 
@@ -200,8 +193,8 @@
 <div>
     <label for="NameField">Name:</label>
     <input type="text" id="nameField" onkeydown="checkEnter(this);" autocomplete="none"></input>
-    <button id="addButton" onclick="addParticipant(document.getElementById('nameField').value);">Add</button>
-    <button id="pauseButton" onclick="pause();">Pause</button>
+    <button id="addButton" onclick="addParticipant(document.getElementById('nameField').value);" class="button">Add</button>
+    <button id="pauseButton" onclick="pause();" class="button">Pause</button>
     <hr>
 </div>
 
