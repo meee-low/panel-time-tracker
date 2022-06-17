@@ -199,7 +199,7 @@
 
 <div>
     <label for="NameField">Name:</label>
-    <input type="text" id="nameField" onkeydown="checkEnter(this);"></input>
+    <input type="text" id="nameField" onkeydown="checkEnter(this);" autocomplete="none"></input>
     <button id="addButton" onclick="addParticipant(document.getElementById('nameField').value);">Add</button>
     <button id="pauseButton" onclick="pause();">Pause</button>
     <hr>
