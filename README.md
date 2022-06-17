@@ -1,6 +1,8 @@
 # panel-time-tracker
  This lets you track speaking time for different participants in panel shows.
 
+ **Direct link:** [https://meee-low.github.io/panel-time-tracker/main](https://meee-low.github.io/panel-time-tracker/main)
+
  **Warning:** currently, refreshing/closing the tab will reset everything.
 
 
