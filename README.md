@@ -5,7 +5,6 @@
 
  **Warning:** currently, refreshing/closing the tab will reset everything.
 
-
 ## Future features(?):
 - Groups/teams: See a summary of total time for different "sides" of the panel.
 - Local cookies to prevent losing all data on refresh.
@@ -16,3 +15,5 @@
 - Move, remove, rename, edit, etc. options for buttons.
 - Interruptions counter.
 - Dynamic number of columns/rows.
+
+Find me on Discord: @MiloDeVenus#0630
