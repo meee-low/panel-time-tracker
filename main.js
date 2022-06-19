@@ -9,30 +9,30 @@ function addParticipant(name){
         return;
     }
 
-    let btn = document.createElement("button");
-    btn.classList.add("button");
-    btn.classList.add("participant");
-    btn.dataset.secondsSpokenTotal = 0; // seconds spoken total
-    btn.dataset.secondsSpokenNow = 0; //seconds spoken in the current session
+    let trackerBtn = document.createElement("button");
+    trackerBtn.classList.add("button");
+    trackerBtn.classList.add("participant");
+    trackerBtn.dataset.secondsSpokenTotal = 0; // seconds spoken total
+    trackerBtn.dataset.secondsSpokenNow = 0; //seconds spoken in the current session
 
     // add a name div inside the button (works as a label)
     let button_name = document.createElement("div");
     button_name.classList.add("name");
     button_name.innerHTML = name;
-    btn.appendChild(button_name);
+    trackerBtn.appendChild(button_name);
 
     // initialize total time to 0 as a div inside the button
     let time = document.createElement("div");
     time.classList.add("time");
     time.innerHTML = "0:00";
-    btn.appendChild(time);
+    trackerBtn.appendChild(time);
 
     // make button interactive
-    btn.onclick = function() {trackerPressed(this);};
+    trackerBtn.onclick = function() {trackerPressed(this);};
 
     // make the button appear in the correct area
     let trackers_area = document.getElementById("trackersArea");
-    trackers_area.appendChild(btn);
+    trackers_area.appendChild(trackerBtn);
     
     // clear input box
     let name_field = document.getElementById("nameField");
