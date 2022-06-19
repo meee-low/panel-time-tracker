@@ -2,7 +2,7 @@ let isRunning = false;
 
 // Internal functions.
 
-function makeParticipantTracker(name){
+function makeParticipantTracker(name, displaytime=0, dataSecondsTotal=0, dataSecondsNow=0){
     // This function creates a participant tracker with the given name
     // and adds it to the page as a button.
     // This tracker/button can be clicked to start/pause the timer.
@@ -17,8 +17,8 @@ function makeParticipantTracker(name){
     trackerBtn.classList.add("participant");
 
     // initialize times to 0
-    trackerBtn.dataset.secondsSpokenTotal = 0; // seconds spoken total
-    trackerBtn.dataset.secondsSpokenNow = 0; //seconds spoken in the current session
+    trackerBtn.dataset.secondsSpokenTotal = dataSecondsTotal; // seconds spoken total
+    trackerBtn.dataset.secondsSpokenNow = dataSecondsNow; //seconds spoken in the current session
 
     // add a name div inside the button (works as a label)
     let button_name = document.createElement("div");
@@ -29,7 +29,8 @@ function makeParticipantTracker(name){
     // initialize total time to 0 as a div inside the button
     let time = document.createElement("div");
     time.classList.add("time");
-    time.innerHTML = "0:00";
+    // time.innerHTML = "0:00";
+    time.innerHTML = displaytime;
     trackerBtn.appendChild(time);
 
     // make button interactive
@@ -42,9 +43,12 @@ function makeParticipantTracker(name){
     // clear input box
     let name_field = document.getElementById("nameField");
     name_field.value = "";
+
+    save(); // save participants into local storage
 }
 function run(){
     // runs the timer that updates every 1000 miliseconds (1s).
+    load(); // load data from local storage
     setInterval(updateTime, 1000);
 }
 
@@ -66,6 +70,7 @@ function updateTime(){
     }
 
     updateLabels(); // refresh labels
+    save(); // save data into local storage
 }
 
 function updateLabels(){
@@ -126,6 +131,7 @@ function pause(){
     isRunning = false;
     DisableActiveTracker();
     updateLabels();
+    save(); // save participants into local storage
 }
 
 function sendIfEnter(ele){
@@ -180,3 +186,79 @@ function padZeroes(num, len){
 }
 
 
+function save(){ // will save current participants+data into local storage
+    //get buttons
+    let buttons = document.getElementsByClassName("participant");
+
+    // load array of participants if in local storage
+    let participants = new Array();
+    try{
+        participants = JSON.parse(localStorage.getItem("participants"));
+    }
+    catch(err){
+        console.log("no existing participants in local storage");
+    }
+    if (participants == null){
+        participants = new Array();
+    }
+
+    
+
+    // loop through all participants, create an object of their properties
+    // then save it to local storage
+    for (const btn of buttons){
+        let participantToSave = {
+            name: btn.getElementsByClassName("name")[0].innerHTML,
+            time: btn.dataset.secondsSpokenTotal,
+            dataSecondsTotal: btn.dataset.secondsSpokenTotal,
+            dataSecondsNow: btn.dataset.secondsSpokenNow
+        };
+
+        // take participant object and turn it into a json string to save
+        let PTSjson = JSON.stringify(participantToSave);
+        // console.log(PTSjson);
+        // localStorage.setItem(btn.getElementsByClassName("name")[0].innerHTML, PTSjson);
+
+        // save properties of participant into local storage
+        localStorage.setItem(participantToSave.name, PTSjson);
+
+        // update array of participants into local storage
+        participantFound=participants.indexOf(participantToSave.name); //checks if participant is already in array
+        if (participantFound == -1){ //if not, add it
+            participants.push(participantToSave.name);
+        }
+        else{ //if participant is already in array, update participant
+            participants[participantFound] = participantToSave.name;
+        }
+        // finally save array of participants into local storage
+        localStorage.setItem("participants", JSON.stringify(participants));
+    }
+
+    
+}
+
+
+function load(){
+    // load participants from local storage if available
+    let participants = [];
+    try{
+        // participants is an array keys of the participants
+        // loops through array of keys and loads the saved participant objects
+        participants = JSON.parse(localStorage.getItem("participants"));
+        for (const participant of participants){
+            participantObject = JSON.parse(localStorage.getItem(participant));
+            // after retriving participant, create a button for it
+            makeParticipantTracker(participantObject.name, participantObject.time, participantObject.dataSecondsTotal, participantObject.dataSecondsNow);
+        }
+    }
+    catch(err){
+        console.log("no existing participants in local storage");
+    }
+
+
+
+    
+
+
+
+}
