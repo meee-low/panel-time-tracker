@@ -2,16 +2,21 @@ let isRunning = false;
 
 // Internal functions.
 
-function addParticipant(name){
-    // This function creates a participant with the given name
+function makeParticipantTracker(name){
+    // This function creates a participant tracker with the given name
     // and adds it to the page as a button.
+    // This tracker/button can be clicked to start/pause the timer.
     if (name == ""){
         return;
     }
 
     let trackerBtn = document.createElement("button");
+
+    // give it classes
     trackerBtn.classList.add("button");
     trackerBtn.classList.add("participant");
+
+    // initialize times to 0
     trackerBtn.dataset.secondsSpokenTotal = 0; // seconds spoken total
     trackerBtn.dataset.secondsSpokenNow = 0; //seconds spoken in the current session
 
@@ -45,7 +50,7 @@ function run(){
 
 function updateTime(){
     // Ticks every second and updates the time internally.
-    // This is triggered by the setInterval function inside run().
+    // This is triggered by the setInterval inside run().
     // Visual changes are handled by updateLabels().
     
     // Ignore if not running.
@@ -123,11 +128,11 @@ function pause(){
     updateLabels();
 }
 
-function checkEnter(ele){
+function sendIfEnter(ele){
     // Triggers when you press enter in the input box.
     if (event.key === "Enter"){
-        // send the text inside the input box to the addParticipant function
-        addParticipant(ele.value);
+        // send the text inside the input box to the makeParticipantTracker function
+        makeParticipantTracker(ele.value);
     }
 }
 

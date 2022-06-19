@@ -39,8 +39,8 @@
 
 <div>
     <label for="NameField">Name:</label>
-    <input type="text" id="nameField" onkeydown="checkEnter(this);" autocomplete="none"></input>
-    <button id="addButton" onclick="addParticipant(document.getElementById('nameField').value);" class="button">Add</button>
+    <input type="text" id="nameField" onkeydown="sendIfEnter(this);" autocomplete="none"></input>
+    <button id="addButton" onclick="makeParticipantTracker(document.getElementById('nameField').value);" class="button">Add</button>
     <button id="pauseButton" onclick="pause();" class="button">Pause</button>
     <hr>
 </div>
