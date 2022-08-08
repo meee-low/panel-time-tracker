@@ -114,7 +114,7 @@ function changeActiveTracker(newActiveTracker){
 
 function DisableActiveTracker(){
     // find and disable currently active button
-    let currentlyActiveTracker = document.getElementsByClassName("activeButton")[0]; //find
+     let currentlyActiveTracker = document.getElementsByClassName("activeButton")[0]; //find active button
     if (currentlyActiveTracker != undefined){
         // as long as you found something
         currentlyActiveTracker.classList.remove("activeButton"); // disable
@@ -178,5 +178,3 @@ function padZeroes(num, len){
     }
     return str;
 }
-
-
